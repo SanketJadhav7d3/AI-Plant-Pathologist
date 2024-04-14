@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <div id="dynamic-pos" class="more-information">
+        Classify upto <span class="hightlight">38 different plant diseases with 97% accuracy</span>
+    </div>
+
+    <div class="main-container">
+        <div class="title-container">
+            <p class="title">
+            <span class="highlight">Sick Plants?</span><br>
+            Let us<br>
+            diagnose<br>
+            them!
+            </p>
+        </div>
+    </div>
+
+    <div class="main-container">
+            <div class="img-grid">
+                <img src="{{ url_for('static', filename='css/images/demo-image-1.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-2.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-3.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-4.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-5.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-6.jpeg') }}" >
+            </div>
+    </div>
+
+    <div class="main-container">
+        <div class="title-container">
+            <p class="title">
+
+            <span class="highlight">Protecting</span><br>Crops<br>
+
+            <span class="highlight">Preserving</span><br>Harvest
+
+            </p>
+        </div>
+    </div>
+
+
+    <div class="form-outer-container">
+        <a href="{{ url_for('trial')}}"><button class="button-89 try-button" style="font-size: 30px;" role="button">Try Now</button></a>
+    </div>
+
+
+    <script>
+
+        window.addEventListener('scroll', () => {
+            var elem = document.getElementById("dynamic-pos");
+            var scrollPosition = window.scrollY;
+            var top = 750;
+            var marginTop = 50;
+
+            console.log(scrollPosition);
+
+            if (scrollPosition + marginTop >= top) elem.style.top = scrollPosition + marginTop + "px";
+
+            if (scrollPosition > 1000) elem.style.top = 1000 + marginTop + "px";
+
+            if (scrollPosition == 0) elem.style.top = top + "px";
+
+        });
+
+    </script>
+
+{% endblock %}

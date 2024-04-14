@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="outer-container">
+        <div class="form-container">
+            <a href="{{ url_for('home')}}"><button class="button-89 home-button">Home</button></a>
+
+            <form action="/infer" class="dropzone" id="my-great-dropzone"></form>
+
+            <button id="upload-button" class="button-89" type="submit">Classify</button>
+
+            <div class="tips">
+                <div class="tips-text">
+                    Please upload a clear image of only single leaf with no other object
+                </div>
+            </div>
+        </div>
+
+        <div id="img-grid-container">
+            <div class="tips-text" style="flex; font-size: 25px; text-align: center;">
+                Drag and drop the image  to the dropzone (only for Safari)<br><br>
+                For other browsers save the image locally and then upload
+            </div>
+            <div class="img-grid-flex">
+                <img src="{{ url_for('static', filename='css/images/demo-image-1.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-2.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-3.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-4.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-5.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-6.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-7.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-8.jpeg') }}" >
+                <img src="{{ url_for('static', filename='css/images/demo-image-9.jpeg') }}" >
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        Dropzone.options.myGreatDropzone = { 
+            init: function() {
+                this.on("queuecomplete", function(file) {
+                    window.location = "/results";
+                });  
+
+                dz = this;
+                document.getElementById("upload-button").addEventListener("click", function handler(e) {
+                    dz.processQueue();
+
+                    dz.on("complete", function(file) {
+                        dz.removeFile(file);
+                    });
+
+                    console.log("file uploaded");
+                });  
+            },
+            uploadMultiple: false,
+            parallelUploads: 2,
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 3, // MB
+            acceptedFiles: "image/*",
+            maxFiles: null,
+            dictDefaultMessage: `Drop files here or click to upload.`, // message display on drop area
+            dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+            dictInvalidFileType: "You can't upload files of this type.",
+            dictFileTooBig: "File is too big {{filesize}}. Max filesize: {{maxFilesize}}MiB.",
+            dictResponseError: "Server error: {{statusCode}}",
+            dictMaxFilesExceeded: "You can't upload any more files.",
+            dictCancelUpload: "Cancel upload",
+            dictRemoveFile: "Remove file",
+            dictCancelUploadConfirmation: "You really want to delete this file?",
+            dictUploadCanceled: "Upload canceled",
+            autoProcessQueue: false,  // custom options code
+            autoDiscover: false
+        };
+
+    </script>
+
+{% endblock %}

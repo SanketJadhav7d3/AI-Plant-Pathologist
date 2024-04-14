@@ -1,0 +1,144 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: rgb(187, 214, 198);
+    background: black;
+}
+
+.background-image {
+    background-image: url("images/leaf_background_5.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    filter: blur(2px);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+} 
+
+.highlight {
+    color: rgb(246, 0, 116);
+}
+
+.button-89 {
+    --b: 6px;  
+    --s: .45em; 
+    --color: rgb(246, 0, 116);
+
+    padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+    color: rgb(187, 214, 198);
+    --_p: var(--s);
+    background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+    transition: .3s linear, color 0s, background-color 0s;
+    outline: var(--b) solid #0000;
+    outline-offset: .6em;
+    font-size: 25px;
+    font-weight: 10px;
+    border: 0;
+
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible{
+    --_p: 0px;
+    outline-offset: .05em;
+}
+
+.button-89:active {
+    color: #fff;
+}
+
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.title-container {
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    height: 100%;
+    left: 15%;
+}
+
+.more-information {
+    font-family: 'Sora', sans-serif;
+    font-size: 30px;
+    padding: 40px 20px;
+    letter-spacing: 3px;
+    position: absolute;
+    top: 750px;
+    left: 15%;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+.title-container > p {
+    font-family: 'Sora', sans-serif;
+    font-size: 100px;
+    font-weight: 50px;
+    letter-spacing: 5px;
+}
+
+.form-outer-container {
+    flex-grow: 5;
+    position: fixed;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.try-button {
+    right: 230px;
+    top: 50%;
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}
+
+.img-grid-container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.img-grid {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: auto auto auto; 
+    gap: 10px; 
+    top: 30%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.img-grid img {
+    width: 250px;
+    height: auto;
+    border-radius: 20px;
+}
+
+.slideFromRight {
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}

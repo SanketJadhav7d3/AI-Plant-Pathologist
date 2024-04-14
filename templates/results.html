@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="output-container">
+        <div class="uploaded-image">
+            <img src="{{ img_path }}" class="imgBorder"/>
+        </div>
+
+        <div class="output-distribution">
+            <div class="most-probable-result">
+                <div class="response-container">
+                    <div class="response_text">
+                        {{ response }}
+                    </div>
+                </div>
+
+                <a href="{{ url_for('trial')}}"><button class="button-89" role="button">Try again</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var div = document.getElementsByClassName("output-container")[0];
+            div.classList.add("fade-in");
+        });
+    </script>
+
+{% endblock %}
