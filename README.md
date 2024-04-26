@@ -14,4 +14,4 @@ A pre-trained Resnet-50 model was fine-tuned on the Plant Leaf Disease Dataset.
 
 Click here to try
 
-https://classifier-guzxsmcyia-el.a.run.app/results
+https://classifier-guzxsmcyia-el.a.run.app
