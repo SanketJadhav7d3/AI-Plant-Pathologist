@@ -1,30 +1,200 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resultpage.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}" />
+{% endblock %}
 
+{% block content %}
     <div class="output-container">
         <div class="uploaded-image">
-            <img src="{{ img_path }}" class="imgBorder"/>
+            <img src="{{ url_for('static', filename='uploads/image.jpeg') }}" class="imgBorder"/>
+            <a href="{{ url_for('trial')}}"><button class="button-89" role="button">Try again</button></a>
         </div>
 
         <div class="output-distribution">
-            <div class="most-probable-result">
-                <div class="response-container">
-                    <div class="response_text">
-                        {{ response }}
+            <div id="chat-window">
+                <div class="bot-response-container">
+                    <img src="{{ url_for('static', filename='images/robot.png') }}" >
+                    <div class="bot-response-text">
+                        {{ response_html }}
                     </div>
                 </div>
-
-                <a href="{{ url_for('trial')}}"><button class="button-89" role="button">Try again</button></a>
             </div>
+
+            <form id="chat-form" style="display: flex; flex-direction: row;" method="post">
+                <textarea id="prompt" name="prompt" rows="4" cols="50" onkeypress="isEnterPressed();" placeholder="Chat with LeafwiseAI assistant"></textarea>
+                <button type="submit" id="prompt-submit-button">
+                    <img src="{{ url_for('static', filename='images/arrow-up.svg') }}" >
+                </button>
+            </form>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var div = document.getElementsByClassName("output-container")[0];
-            div.classList.add("fade-in");
-        });
-    </script>
+        // feed the context to gemini api key
 
+        var isPromptBeingLoaded = false;
+
+        function provideContext() {
+            disableTextArea("Loading AI assistant");
+
+            var prompt = `You are a virtual plant pathologists Leafwise AI. 
+                Your initial context is a diagnosis result of a plant uploaded by user. 
+                Here it is {{ response }}. 
+                Give further prompts according to it`
+
+            var formData = new FormData();
+
+            console.log(prompt);
+
+            formData.append('prompt', prompt)
+
+            fetch('/chat', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.response);
+                    enableTextArea();
+                })
+                .catch(error => {
+                    console.error('Error:');
+                }).finally(() => {
+                    enableTextArea();
+                });
+        }
+
+        document.getElementById('prompt').addEventListener('input', (event) => {
+            console.log(event.keyCode);
+            console.log(event.which);
+
+            if (event.target.value.replace(/\s/g, '') == '')
+                disableSubmitButton();
+            else
+                if (isPromptBeingLoaded)
+                    disableSubmitButton();
+                else
+                    enableSubmitButton();
+        });
+
+        function disableTextArea(message) {
+            var textarea = document.getElementById("prompt");
+            textarea.placeholder = message;
+            textarea.style.opacity = 0.5;
+            textarea.disabled = true;
+        }
+
+        function enableTextArea() {
+            var textarea = document.getElementById("prompt");
+            textarea.placeholder = "Chat with LeafwiseAI assistant";
+            textarea.style.opacity = 1;
+            textarea.disabled = false;
+        }
+
+        function disableSubmitButton() {
+            var button = document.getElementById("prompt-submit-button");
+            button.style.opacity = 0.5;
+            button.disabled = true;
+        }
+
+        function enableSubmitButton() {
+            var button = document.getElementById("prompt-submit-button");
+            button.style.opacity = 1;
+            button.disabled = false;
+        }
+
+        function createUserPromptContainer(content) {
+            var userPromptContainer = document.createElement("div");
+            userPromptContainer.classList.add("user-prompt-container");
+
+            var img = document.createElement("img");
+            img.src = "{{ url_for('static', filename='images/user.png') }}";
+            userPromptContainer.appendChild(img);
+
+            var userPromptText = document.createElement("div");
+            userPromptText.classList.add("user-prompt-text");
+
+            userPromptText.innerHTML = content;
+
+            userPromptContainer.appendChild(userPromptText);
+
+            document.getElementById("chat-window").appendChild(userPromptContainer);
+        }
+
+        function createBotResponseContainerWithLoader() {
+            var botResponseContainer = document.createElement("div");
+            botResponseContainer.classList.add("bot-response-container");
+
+            var img = document.createElement("img");
+            img.src = "{{ url_for('static', filename='images/robot.png') }}";
+            botResponseContainer.appendChild(img);
+
+            var botResponseText = document.createElement("div");
+            botResponseText.classList.add("bot-response-text");
+
+            botResponseText.innerHTML = '<div class="loader"><span class="dots"></span><span class="dots"></span><span class="dots"></span><span class="dots" ></span><span class="dots"></span><span class="dots"></span></div>';
+
+            botResponseContainer.appendChild(botResponseText);
+
+            document.getElementById("chat-window").appendChild(botResponseContainer);
+
+            return botResponseContainer;
+        }
+
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            disableSubmitButton();
+
+            isPromptBeingLoaded = true;
+            
+            var formData = new FormData(this);
+
+            var prompt = formData.get('prompt');
+
+            formData.set('prompt', 'You are a plant pathologist and will give response related to it only. ' + prompt);
+
+            var textarea = document.getElementById('prompt');
+
+            textarea.value = '';
+
+            createUserPromptContainer(prompt);
+
+            botContainer = createBotResponseContainerWithLoader();
+
+            // down to the bottom
+            var element = document.getElementById("chat-window");
+
+            element.scrollTop = element.scrollHeight;
+
+            disableSubmitButton();
+
+            fetch('/chat', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.response);
+                    console.log(botContainer.childNodes[1]);
+                    botContainer.childNodes[1].innerHTML = data.response;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    botContainer.childNodes[1].innerHTML = "Something went wrong";
+                }).finally(() => {
+                    isPromptBeingLoaded = false;
+                    const textValue = document.getElementById('prompt').value;
+                    if (textValue.replace(/\s/g, '') != '')
+                        enableSubmitButton();
+                });
+        });
+
+        disableSubmitButton();
+
+        provideContext();
+
+    </script>
 {% endblock %}

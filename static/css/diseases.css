@@ -1,0 +1,52 @@
+
+
+.diseases-container {
+    width: 100vw;
+    position: absolute; 
+    top: 0px; 
+    left: 0px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.disease-container { 
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 600px;
+    width: 400px;
+    backdrop-filter: blur(100%);
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+    margin: 30px;
+    animation: 1s ease-out 0s 1 slideInFromBottom;
+    border-radius: 10px;
+    border-bottom: 2px solid rgb(246, 0, 116);
+    border-top: 2px solid rgb(246, 0, 116);
+}
+
+.disease-container > img {
+    height: 350px;
+    width: 350px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.disease-title {
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.disease-info {
+    font-size: 20px;
+    padding: 10px;
+    overflow: scroll;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

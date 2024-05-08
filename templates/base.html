@@ -2,10 +2,10 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/trialpage.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}" />
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        {% block styles %}{% endblock %}
+
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Anton&family=Questrial&family=Sora:wght@699&display=swap" rel="stylesheet">
         {{ dropzone.load_css() }} 
@@ -15,5 +15,16 @@
         <div class="background-image"></div>
 
         {% block content %}{% endblock %}
+
+        <div class="flash-container">
+            {% for message in get_flashed_messages() %}
+            <div class="flash-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <script>
+        </script>
     </body>
 </html>

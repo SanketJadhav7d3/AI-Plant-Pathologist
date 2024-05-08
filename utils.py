@@ -60,69 +60,6 @@ cwd = os.path.abspath(os.path.dirname(__file__))
 # model = tf.keras.models.load_model(model_path)
 
 
-storage_client = storage.Client.from_service_account_json("key.json")
-
-datastore_client = datastore.Client.from_service_account_json("datastore.json", project="plantdiseaseclassifierfrontend")
-
-
-def upload_image(bucket_name, image, destination_blob_name):
-
-    bucket = storage_client.bucket(bucket_name)
-
-    blob = bucket.blob(destination_blob_name)
-
-    blob.upload_from_file(image)
-
-    print(f"Image uploaded to gs://{bucket_name}/{destination_blob_name}")
-
-    expiration = int(datetime.now(tz=timezone.utc).timestamp()) + 3600
-
-    signed_url = blob.generate_signed_url(expiration=expiration)
-
-    return signed_url
-
-def save_model_inference(signed_url, labels):
-
-    data = { 'signed_url' : signed_url, 'classes' : labels }
-
-    json_data = json.dumps(data)
-
-    entity_key = datastore_client.key("Results", "result")
-
-    entity = datastore.Entity(key=entity_key)
-
-    for key, value in data.items():
-        if isinstance(value, list) and all(isinstance(item, list) for item in value):
-            entity[key] = json.dumps(value)
-        else:
-            entity[key] = value
-
-    datastore_client.put(entity)
-
-    print("sent data to firestore")
-
-def retrieve_results():
-    entity_key = datastore_client.key("Results", "result")
-    entity = datastore_client.get(entity_key)
-
-    return entity
-
-def download_image(imageurl):
-    '''
-    returns numpy array of image
-    '''
-    response = requests.get(imageurl)
-    image = Image.open(BytesIO(response.content))
-    return np.array(image).astype(np.float32)
-
-def preprocess_image(image_array):
-
-    image_array = tf.image.resize(image_array, (200, 200)).numpy()
-
-    image_array = tf.keras.applications.resnet50.preprocess_input(image_array)
-
-    return image_array
-
 
 if __name__ == "__main__":
     path = "static/css/images/demo-image-2.jpeg"

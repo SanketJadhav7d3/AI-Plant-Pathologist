@@ -1,5 +1,10 @@
 
 {% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}" />
+{% endblock %}
+
 {% block content %}
     <div id="dynamic-pos" class="more-information">
         Classify upto <span class="hightlight">38 different plant diseases with 97% accuracy</span>
@@ -39,11 +44,16 @@
         </div>
     </div>
 
+    <div class="main-container">
+        <div class="title-container">
+            <a href="{{ url_for('diseases')}}"><button class="button-89 try-button" style="font-size: 30px;" role="button">See what diseases we can classify</button></a>
+        </div>
+    </div>
+
 
     <div class="form-outer-container">
         <a href="{{ url_for('trial')}}"><button class="button-89 try-button" style="font-size: 30px;" role="button">Try Now</button></a>
     </div>
-
 
     <script>
 

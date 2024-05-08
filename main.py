@@ -1,7 +1,7 @@
 
-from flask import Flask, render_template, request, flash, jsonify, url_for, redirect, make_response
+from flask import Flask, render_template, request, flash, jsonify, url_for, redirect, make_response, session
 from markupsafe import Markup
-from utils import upload_image, save_model_inference, retrieve_results, indices_to_class
+from utils import indices_to_class
 import json
 import random
 from flask_dropzone import Dropzone
@@ -17,7 +17,9 @@ import tensorflow as tf
 from PIL import Image
 import google.generativeai as genai
 import mistune
-
+from functools import wraps
+import cv2 
+ 
 
 app = Flask(__name__)
 
@@ -30,15 +32,7 @@ dropzone = Dropzone(app)
 
 upload_folder_path = os.path.join("static", "uploads")
 
-app.config['UPLOADED_PATH'] = upload_folder_path
-
-# endpoint 
-ENDPOINT_ID = 8950473250840772608
-PROJECT_NUMBER = 417525863877
-
-endpoint_name = f"projects/{PROJECT_NUMBER}/locations/asia-southeast1/endpoints/{ENDPOINT_ID}"
-
-endpoint = aiplatform.Endpoint(endpoint_name=endpoint_name)
+app.config['UPLOAD_FOLDER'] = upload_folder_path
 
 try:
     gemini_api_key = os.environ.get("GEMINI_API_KEY")
@@ -48,11 +42,28 @@ except:
 genai.configure(api_key=gemini_api_key)
 model = genai.GenerativeModel('gemini-pro')
 
+chat_api = model.start_chat(history=[])
+
+# load the model
+classifier = tf.saved_model.load('./model')
+
+def form_submission_required(func):
+    wraps(func)
+
+    def secure_function(*args, **kwargs):
+        if 'form_submitted' not in session or not session['form_submitted']:
+            return redirect(url_for("trial"))
+        return func(*args, **kwargs)
+
+    return secure_function
+
 
 def get_response_from_gemni(most_likely_diseases):
-    prompt = f"The output of a classifcation model along with logits is {most_likely_diseases}\
+    prompt = f"You are virtual plant pathologist and will give responses related to it only. The output of a classifcation model along with logits is {most_likely_diseases}\
             Explain the above inference neatly giving the information about the diseases\
-            and briefly explain about the most likely disease and causes of it"
+            and briefly explain about the most likely disease and causes of it\
+            Here give more focus on the most likely disease and don't explain that there is tuple\
+            Give response which is understandable by non-machine learning people"
 
 
     response = model.generate_content(prompt)
@@ -65,35 +76,67 @@ def get_response_from_gemni(most_likely_diseases):
     except:
         print("something went wrong")
     
-
     return mistune.html(response_str)
+
+
+def func_chat(prompt):
+    response = chat_api.send_message(prompt)
+
+    response_str = ""
+
+    try:
+        for chunk in response:
+            response_str += chunk.text
+    except:
+        print("something went wrong")
+
+    return response_str
+
+
+@app.route('/chat', methods=["POST"])
+def chat():
+
+    if request.method == "POST":
+        prompt = request.form["prompt"]
+
+        response = chat_api.send_message(prompt)
+
+        response_str = ""
+
+        try:
+            for chunk in response:
+                response_str += chunk.text
+        except:
+            print("something went wrong")
+
+        response_html_str = mistune.html(response_str)
+
+        json_response = json.dumps({
+            "response" : response_html_str
+            })
+
+        return json_response
+
+    return "Something went wrong"
 
 
 def remove_underscore(name):
     return re.sub(r'_+', ' ', name)
 
-def classify(instances : list):
-    file = instances[0]
-
-    img = Image.open(BytesIO(file.read()))
-
-    img_array = np.array(img)
-
-    x_test = np.asarray(img_array).astype(np.float32)
+def classify(img):
+    x_test = np.asarray(img).astype(np.float32)
 
     x_test = tf.image.resize(x_test, (200, 200)).numpy()
 
     x_test = tf.keras.applications.resnet50.preprocess_input(x_test)
 
+    x_test = tf.expand_dims(x_test, 0)
 
-    x_test = x_test.tolist()
-
-    predictions = endpoint.predict(instances=[x_test]).predictions
+    predictions = classifier(x_test)
 
     infer_class = np.argsort(predictions[0])[::-1][:5]
 
     return [[remove_underscore(indices_to_class[i]), predictions[0][i]] for i in infer_class]
-
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -105,41 +148,49 @@ def infer():
     if request.method == 'POST':
         file = request.files.get('file')
 
-        if file:
-            filename = secure_filename(file.filename)
-            
-            try:
-                signed_url = upload_image("uploaded-images-inference", file, filename) 
-            except Exception as e:
-                print(e)
-                redirect(url_for('trial'))
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-            file.seek(0)
+        try:
+            file.save(file_path)
+        except Exception as e:
+            print(e)
+            redirect(url_for('trial'))
 
-            labels = classify([file])
+        return redirect(url_for('results', filename=filename))
 
+    redirect(url_for('trial'))
 
-            try:
-                save_model_inference(signed_url, labels)
-                pass 
-            except Exception as e:
-                print(e)
-                redirect(url_for('trial'))
+@app.route('/diseases', methods=['GET'])
+def diseases():
+    return render_template("diseases.html")
 
-    return redirect(url_for('results'))
-
-@app.route('/results', methods=['GET'])
+@form_submission_required
+@app.route('/results', methods=['GET'], endpoint='results')
 def results():
 
-    data = retrieve_results()
+    filename = request.args.get('filename')
 
-    labels = json.loads(data['classes'])
-    signed_url = data['signed_url']
+    file_path = os.path.join('static', f'uploads/image.jpeg')
 
-    response = Markup(get_response_from_gemni(labels))
+    img = Image.open(file_path)
 
+    labels_ = classify(img)
 
-    return render_template("results.html", img_path=signed_url, labels=labels, response=response)
+    prompt = f"You are virtual plant pathologist and will give responses related to it only. The output of a classifcation model along with logits is {labels_}\
+            Explain the above inference neatly giving the information about the diseases\
+            and briefly explain about the most likely disease and causes of it\
+            Here give more focus on the most likely disease and don't explain that there is tuple\
+            Give response which is understandable by non-machine learning people"
+
+    response = func_chat(prompt)
+
+    response_html = mistune.html(response)
+
+    response_html = Markup(response_html)
+
+    return render_template("results.html", img_path=file_path, response=response, response_html=response_html)
+
 
 @app.route('/trial', methods=['GET'])
 def trial():

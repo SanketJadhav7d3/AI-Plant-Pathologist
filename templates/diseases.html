@@ -1,0 +1,298 @@
+
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/diseases.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="diseases-container">
+
+        <div style="flex-grow: 1; flex-basis: 100%; display: flex; justify-content: center; align-items: center;">
+            <a href="{{ url_for('home')}}"><button class="button-89 try-button" style="font-size: 30px;" role="button">Back to home</button></a>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Apple Cedar Rust</div>
+            <img src="{{ url_for('static', filename='images/apple_cedar_rust.jpeg') }}">
+            <div class="disease-info">
+                Caused by a fungus, cedar apple rust is a two-year cycle disease that blemishes apples 
+                and crabapples with yellow spots and prematurely drops leaves,
+                while deforming juniper trees with reddish galls that release spores infecting nearby apples in spring.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Apple Rot</div>
+            <img src="{{ url_for('static', filename='images/apple_rot.jpeg') }}">
+            <div class="disease-info">
+                Apple rot is a general term for fungal diseases that cause apples to decay.
+                Different fungi can cause various rots, with symptoms like brown spots, mushy flesh, and shrunken skin.
+                These fungi can infect apples before or after harvest, and prevention involves proper storage, avoiding damage to the fruit, and sometimes fungicides.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Apple Scab</div>
+            <img src="{{ url_for('static', filename='images/apple_scab.jpeg') }}">
+            <div class="disease-info">
+                Apple scab is a common disease of plants in the rose family (Rosaceae) that is caused by the ascomycete fungus Venturia inaequalis.
+                While this disease affects several plant genera, including Sorbus, Cotoneaster, and Pyrus, it is most commonly associated with the infection of Malus trees, including species of flowering crabapple, as well as cultivated apple.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Cherry Powdery Mildew</div>
+            <img src="{{ url_for('static', filename='images/cherry_powdery_mildew.jpeg') }}">
+            <div class="disease-info">
+                Cherry powdery mildew, caused by a fungus, harms sweet and tart cherry trees.
+                It appears as white, powdery patches on young leaves and fruit, reducing fruit quality and potentially leading to rot.
+                Cool, wet weather promotes its spread, and targeting young leaves with fungicide sprays early in the season is key for control.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Corn Gray Leaf Spot</div>
+            <img src="{{ url_for('static', filename='images/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot.jpeg') }}">
+            <div class="disease-info">
+                Corn (maize) is susceptible to two fungal diseases: Cercospora leaf spot and Gray leaf spot.
+                Both cause lesions on leaves, but Cercospora leaf spot lesions are circular or oval, while Gray leaf spot lesions are rectangular and run along the length of the leaf.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Corn Common Rust</div>
+            <img src="{{ url_for('static', filename='images/corn_common_rust.jpeg') }}">
+            <div class="disease-info">
+                Corn common rust, a fungal disease, erupts in oval, brown pustules on both corn leaf surfaces.
+                Once these pustules burst, they release spores that readily infect other corn plants, especially under cool, wet conditions.
+                Though historically minor, increased planting of susceptible corn varieties has made common rust a bigger threat.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Corn Northern Leaf Blight</div>
+            <img src="{{ url_for('static', filename='images/corn_northern_leaf_blight.jpeg') }}">
+            <div class="disease-info">
+                Northern corn leaf blight, caused by the fungus Exserohilum turcicum, threatens corn yields with distinctive cigar-shaped lesions that run up and down leaves.
+                These lesions can multiply and cover large areas, ultimately destroying leaves and reducing yields, particularly on susceptible corn varieties.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Grape Esca</div>
+            <img src="{{ url_for('static', filename='images/Grape___Esca_(Black_Measles).jpeg') }}">
+            <div class="disease-info">
+                Grape Esca, also known as Black Measles, is a sneaky fungal disease that weakens grapevines slowly.
+                It causes a variety of woes for the vine like stunted growth, wilting, and black streaks on leaves and stems, eventually leading to vine death.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Grape Leaf Blight</div>
+            <img src="{{ url_for('static', filename='images/Grape___Leaf_blight_(Isariopsis_Leaf_Spot).jpeg') }}">
+            <div class="disease-info">
+                Grape Leaf Blight, also known as Isariopsis Leaf Spot, is a fungal disease that blemishes grapevines with small, circular brown spots with dark centers on the leaves.
+                These spots can expand and merge, causing leaves to turn yellow and prematurely fall off.
+                Severe infections can significantly reduce grape yields and fruit quality.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Graph Black Rot</div>
+            <img src="{{ url_for('static', filename='images/grape_black_rot.jpeg') }}">
+            <div class="disease-info">
+                Grape black rot, a fungal disease, wreaks havoc on vineyards by turning grapes brown and shriveled.
+                Starting from small, brown spots, it infects the fruit and spreads rapidly in warm, wet weather.
+                If left unchecked, it can devastate entire grape clusters, leading to significant harvest losses.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Orange Huanglongbing</div>
+            <img src="{{ url_for('static', filename='images/Orange___Haunglongbing_(Citrus_greening).jpeg') }}">
+            <div class="disease-info">
+                Huanglongbing, also known as Citrus greening, is a devastating disease spread by psyllids (tiny insects) that threatens oranges and other citrus trees.
+                Infected trees produce misshapen, bitter fruit and eventually die, causing significant economic losses to citrus growers.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Peach Bacterial Spot</div>
+            <img src="{{ url_for('static', filename='images/Peach___Bacterial_spot.jpeg') }}">
+            <div class="disease-info">
+                Peach bacterial spot, caused by Xanthomonas arboricola pv. pruni, creates angular lesions on leaves, twigs, and fruit.
+                These lesions turn reddish-purple and can fall out, leaving "shot holes" in leaves.
+                Fruit suffers the most, developing sunken spots that crack and become susceptible to further infections, reducing both fruit quality and yield.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Bell Pepper Bacterial Spot</div>
+            <img src="{{ url_for('static', filename='images/Pepper,_bell___Bacterial_spot.jpeg') }}">
+            <div class="disease-info">
+                Bell pepper bacterial spot, caused by Xanthomonas campestris pv. vesicatoria, is a destructive disease.
+                Look out for small, water-soaked spots on young leaves that morph into angular lesions.
+                These can turn brown and scabbed, affecting fruit as well.
+                This bacterium survives in seeds and plant debris, so prevention through resistant varieties and proper sanitation is key.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Potato Early Blight</div>
+            <img src="{{ url_for('static', filename='images/Potato___Early_blight.jpeg') }}">
+            <div class="disease-info">
+                Early blight, a fungal menace to potato plants, starts with small brown spots on aging leaves that grow into target-like bulls’-eyes with concentric rings.
+                These spots can spread to stems and tubers, reducing potato yield and quality, especially under warm, humid conditions.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Potato Late Blight</div>
+            <img src="{{ url_for('static', filename='images/Potato___Late_bligh.jpeg') }}">
+            <div class="disease-info">
+                Late blight, a destructive disease caused by the oomycete Phytophthora infestans, is a major threat to potato crops.
+                It can infect both leaves and tubers, leaving water-soaked spots on leaves that turn brown and develop white mold underneath.
+                The tubers develop sunken, reddish-brown lesions that can rot if not addressed quickly.
+                This disease thrives in cool, wet weather and can devastate potato yields if left unchecked.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Squash Powdery Mildew</div>
+            <img src="{{ url_for('static', filename='images/Squash___Powdery_mildew.jpeg') }}">
+            <div class="disease-info">
+                Squash powdery mildew, a fungal nuisance, looks like a dusting of white powder on your squash leaves.
+                It thrives in cool, humid conditions and weakens plants by sucking nutrients.
+                While rarely fatal, severe cases can cause leaves to yellow, drop, and reduce squash yield.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Strawberry Leaf Scroch</div>
+            <img src="{{ url_for('static', filename='images/Strawberry___Leaf_scorch.jpeg') }}">
+            <div class="disease-info">
+                Strawberry leaf scorch is a fungal disease that affects the foliage of strawberry plants, caused by the fungus Diplocarpon earliana.
+                It's one of the most common diseases that can significantly reduce crop yield.
+                The disease first appears as small, purplish blemishes on the upper surface of leaves.
+                Over time, these spots grow larger and darker, eventually covering entire portions of leaves and causing them to dry out and fall off.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Bacterial Spot</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Bacterial_spot.jpeg') }}">
+            <div class="disease-info">
+                Tomato bacterial spot is a serious disease that can infect all above-ground parts of a tomato plant, including the leaves, stems, and fruits.
+                It is caused by several species of bacteria, most commonly Xanthomonas vesicatoria.
+                The disease is spread by splashing rain, overhead irrigation, and by handling wet plants.
+                Warm, moist conditions favor infection and disease development.
+        Symptoms of tomato bacterial spot include small, round, water-soaked spots on leaves that turn dark brown or black and are surrounded by a yellow halo. The spots may also appear on stems and fruit, and can cause the fruit to become unmarketable.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Leaf Mold</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Leaf_Mold.jpeg') }}">
+            <div class="disease-info">
+                Tomato leaf mold is a fungal disease caused by the fungus Passalora fulva.
+                It's a common problem in greenhouses, but can also occur outdoors in areas with high humidity and cool temperatures.
+                The disease first appears as small, yellow spots on the upper leaves of the tomato plant.
+                As the disease progresses, the spots grow larger and turn brown.
+                A grayish-brown mold will also develop on the underside of the leaves.
+                If left untreated, tomato leaf mold can defoliate the plant and reduce yields. 
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Septoria Leaf Spot</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Septoria_leaf_spot.jpeg') }}">
+            <div class="disease-info">
+                Tomato septoria leaf spot is a fungal disease that can affect tomatoes at any stage of their growth.
+                It is caused by the fungus Septoria lycopersici and is most common in warm, humid conditions.
+                The disease starts with small, brown spots on the older, lower leaves of the plant.
+                These spots will grow larger and may merge together, eventually causing the leaves to turn yellow and die.
+                If left untreated, septoria leaf spot can defoliate the entire plant, reducing fruit yield and quality.
+            </div>
+        </div>
+
+        <div class="disease-container">
+            <div class="disease-title">Two Spotted Spider Mites</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Spider_mites Two-spotted_spider_mite.jpeg') }}">
+            <div class="disease-info">
+                Two-spotted spider mites are tiny, sap-sucking pests that can wreak havoc on tomato plants.
+                They are the most common mite species that attack vegetable and fruit crops.
+                These mites are barely visible to the naked eye, but their damage is quite noticeable.
+                They feed on the undersides of leaves, sucking out the juices and causing the leaves to turn yellow and stippled with brown spots.  In severe infestations, the leaves will become dry and brittle, and the entire plant may be stunted or die.
+            </div>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Target Spot</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Target_Spot.jpeg') }}">
+            <div class="disease-info">
+                Tomato target spot is a fungal disease that causes lesions on tomato plants and fruit.
+                These lesions start small and yellow, but enlarge to develop characteristic rings, giving them a target-like appearance.
+                This disease thrives in humid conditions and can be spread by spores that survive in soil.
+            </div>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Mosaic Virus</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Tomato_mosaic_virus.jpeg') }}">
+            <div class="disease-info">
+                Tomato mosaic virus (ToMV) is a plant pathogenic virus that is found worldwide and affects tomatoes and many other plants.
+                It is a member of the Tobamovirus genus and causes mosaic disease, a condition characterized by light and dark green mottling or discoloration on leaves.
+                Tomatoes infected with ToMV may also be stunted and produce fewer fruits. 
+            The virus is easily spread by contact, through cultural practices, or by contaminated seeds.
+            There is no cure for ToMV, but there are steps that can be taken to prevent the spread of the virus, such as removing infected plants, disinfecting tools, and washing hands before handling healthy plants.
+            </div>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Yellow Leaf Curl Virus</div>
+            <img src="{{ url_for('static', filename='images/Tomato___Tomato_Yellow_Leaf_Curl_Virus.jpeg') }}">
+            <div class="disease-info">
+                Tomato Yellow Leaf Curl Virus (TYLCV) is a devastating DNA virus that can infect tomato plants, causing severe stunting, yellowing, and curling of leaves.
+                It is transmitted by whiteflies, which spread the virus from plant to plant.
+                TYLCV can cause significant yield losses, up to 100% in some cases.
+                This disease is most common in tropical and subtropical regions. 
+            </div>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Tomato Early Blight</div>
+            <img src="{{ url_for('static', filename='images/tomato_early_blight.jpeg') }}">
+            <div class="disease-info">
+                Early blight is a fungal disease that can infect all parts of a tomato plant, including the leaves, stems, and fruit.
+                It is caused by the fungus Alternaria solani and is most common in warm, humid weather.
+                The first symptoms of early blight are small, brown spots on the lower leaves of the plant.
+                These spots will eventually enlarge and develop concentric rings, giving them a target-like appearance.
+                The leaves will then turn yellow and drop off.
+                If the fruit is infected, it will develop sunken lesions that may also have concentric rings.
+                Early blight can reduce tomato yields and make the fruit more susceptible to sunscald.
+            </div>
+        </div>
+
+
+        <div class="disease-container">
+            <div class="disease-title">Tomata Late Blight</div>
+            <img src="{{ url_for('static', filename='images/tomato_late_blight.jpeg') }}">
+            <div class="disease-info">
+                Tomato late blight is a fungal disease that can devastate tomato plants.
+                It is caused by the fungus Phytophthora infestans, which also attacks potatoes, eggplants, and other members of the nightshade family.
+                The disease is most common in cool, moist weather and can spread quickly through windblown spores.
+                Symptoms of tomato late blight include water-soaked spots on leaves, stems, and fruit.
+                These spots can quickly enlarge and turn brown or black.
+                The fruit may also become shriveled and rotten.
+                If you see signs of tomato late blight, it is important to remove affected plants from your garden and destroy them to prevent the disease from spreading.
+                There are also a number of fungicides that can be used to control tomato late blight.
+            </div>
+        </div>
+    </div>
+{% endblock %}

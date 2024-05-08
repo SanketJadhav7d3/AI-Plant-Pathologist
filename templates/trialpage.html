@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/trialpage.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}" />
+{% endblock %}
+
 {% block content %}
 
     <div class="outer-container">
@@ -36,6 +41,10 @@
         </div>
     </div>
 
+    <div id="trial-loader">
+        <div class="loader"><span class="dots"></span><span class="dots"></span><span class="dots"></span><span class="dots"></span><span class="dots"></span><span class="dots"></span></div>
+    </div>
+
     <script>
 
         Dropzone.options.myGreatDropzone = { 
@@ -44,12 +53,23 @@
                     window.location = "/results";
                 });  
 
+                this.on("error", function(file, errorMessage, xhr) {
+                    console.error("Error uploading file:", errorMessage);
+                    window.location = "/trial";
+                    alert("Something went wrong");
+                });
+
                 dz = this;
                 document.getElementById("upload-button").addEventListener("click", function handler(e) {
                     dz.processQueue();
 
+                    if (dz.files.length != 0) {
+                        document.getElementById('trial-loader').style.display = 'block';
+                    }
+
                     dz.on("complete", function(file) {
                         dz.removeFile(file);
+                        document.getElementById('trial-loader').style.display = 'none';
                     });
 
                     console.log("file uploaded");
@@ -60,7 +80,7 @@
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 3, // MB
             acceptedFiles: "image/*",
-            maxFiles: null,
+            maxFiles: 1,
             dictDefaultMessage: `Drop files here or click to upload.`, // message display on drop area
             dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
             dictInvalidFileType: "You can't upload files of this type.",
@@ -75,6 +95,9 @@
             autoDiscover: false
         };
 
+        window.onpageshow = function(event) {
+            document.getElementById('trial-loader').style.display = 'none';
+        };
     </script>
 
 {% endblock %}
