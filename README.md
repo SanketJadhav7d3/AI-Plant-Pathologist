@@ -15,3 +15,7 @@ A pre-trained Resnet-50 model was fine-tuned on the Plant Leaf Disease Dataset.
 Click here to try
 
 https://classifier-guzxsmcyia-el.a.run.app (currently doesn't work)
+
+# Tensorflow savedmodel format drive link
+
+https://drive.google.com/drive/folders/1--JgkNaDHVVI2RY5CscyuZ7C-upJxsu0?usp=sharing
