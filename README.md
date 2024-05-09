@@ -23,7 +23,11 @@ https://drive.google.com/drive/folders/1--JgkNaDHVVI2RY5CscyuZ7C-upJxsu0?usp=sha
 # Steps to run the flask app locally
 
 * First obtain gemini api key and set it as your environment variable.
-* Download the tensorflow savedmodel format and store the contents in the model directory.
+* Create directory named model in your project.
+```bash
+mkdir model
+```
+* Download the tensorflow savedmodel format and store the contents in the created model directory.
 * Create python virtual environment with the tool of your choice.
 * Download the requirements
 
