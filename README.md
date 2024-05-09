@@ -28,7 +28,7 @@ https://drive.google.com/drive/folders/1--JgkNaDHVVI2RY5CscyuZ7C-upJxsu0?usp=sha
 * Download the requirements
 
 ```bash
-pip install -r requirements
+pip install -r requirements.txt
 ```
 * Run the app
   
