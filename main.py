@@ -45,7 +45,7 @@ model = genai.GenerativeModel('gemini-pro')
 chat_api = model.start_chat(history=[])
 
 # load the model
-classifier = tf.saved_model.load('./model')
+classifier = tf.saved_model.load('./model') 
 
 def form_submission_required(func):
     wraps(func)
@@ -64,7 +64,6 @@ def get_response_from_gemni(most_likely_diseases):
             and briefly explain about the most likely disease and causes of it\
             Here give more focus on the most likely disease and don't explain that there is tuple\
             Give response which is understandable by non-machine learning people"
-
 
     response = model.generate_content(prompt)
 
