@@ -20,8 +20,9 @@ https://classifier-guzxsmcyia-el.a.run.app (currently doesn't work)
 
 https://drive.google.com/drive/folders/1--JgkNaDHVVI2RY5CscyuZ7C-upJxsu0?usp=sharing
 
-# Steps to locally
+# Steps to run the flask app locally
 
+* Switch to the local branch.
 * First obtain gemini api key and set it as your environment variable.
 * Download the tensorflow savedmodel format and store the contents in the model directory.
 * Create python virtual environment with the tool of your choice.
@@ -35,4 +36,3 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
-
