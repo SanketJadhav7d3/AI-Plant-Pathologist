@@ -10,7 +10,7 @@ A pre-trained Resnet-50 model was fine-tuned on the Plant Leaf Disease Dataset.
 
 * The trained classifier has been deployed to the Google Vertex AI Endpoint. 
 * The flask frontend is hosted on google cloud run.
-* Gogole cloud storage is also used to store the uploaded images.
+* Google cloud storage is also used to store the uploaded images.
 
 Click here to try
 
