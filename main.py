@@ -33,8 +33,8 @@ upload_folder_path = os.path.join("static", "uploads")
 app.config['UPLOADED_PATH'] = upload_folder_path
 
 # endpoint 
-ENDPOINT_ID = 8950473250840772608
-PROJECT_NUMBER = 417525863877
+ENDPOINT_ID = None
+PROJECT_NUMBER = None
 
 endpoint_name = f"projects/{PROJECT_NUMBER}/locations/asia-southeast1/endpoints/{ENDPOINT_ID}"
 
