@@ -21,3 +21,10 @@ https://classifier-guzxsmcyia-el.a.run.app (currently doesn't work)
 https://drive.google.com/drive/folders/1--JgkNaDHVVI2RY5CscyuZ7C-upJxsu0?usp=sharing
 
 # To run the flask app locally switch to local branch
+
+# Python Flask App
+
+![interface-image-1](https://github.com/user-attachments/assets/99d8cdcb-b033-4c2c-8a2a-fdeb05dd9c12)
+
+![interface-image-2](https://github.com/user-attachments/assets/6d0a5c00-41a8-4e3d-90b6-df09a80d7b47)
+
